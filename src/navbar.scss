@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap");
+
+:root {
+  --background-color: #2b2b2b;
+  --foreground-color: rgba(255, 255, 255, 0.7);
+  --foreground-color-active: white;
+  --transition: 250ms ease-in-out;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+header {
+  display: grid;
+  gap: 0.5rem;
+  
+  &.version-1 {
+    --color: #ba4aff;
+
+    grid-template-columns: 
+      min-content
+      auto
+      max-content;
+    grid-template-areas: 
+      "logo nav user";
+  }
+ 
+  
+  padding: 0.5rem;
+  width: 100%;
+  min-width: 300px;
+  
+  background: var(--background-color);
+  box-shadow: 3px 3px 8px 0px var(--background-color);
+  
+  font-family: "Lato", sans-serif;
+  
+  h4, a {
+    display: flex;
+    align-items: center;
+    
+    padding: 0.1rem 1rem;
+    border-radius: 0.5rem;
+    
+    text-decoration: none;
+    color: var(--foreground-color);
+    
+    > i {
+      color: var(--color);
+      
+      font-size: 0.7em;
+      
+      transition: all var(--transition);
+    }
+    
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    --slantness: 4rem;
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      left: calc(
+        (100% + var(--slantness))
+        * -1);
+      top: 0%;
+      bottom: 0%;
+      width: calc(100% + var(--slantness));
+      clip-path: polygon(
+        0% 0%,
+        100% 0%,
+        calc(100% - var(--slantness)) 100%,
+        0% 100%
+      );
+      
+      background: var(--color);
+      opacity: 0;
+      
+      transition: all var(--transition);
+    }
+    
+    &:hover {
+      > i {
+        color: var(--background-color);
+      }
+      
+      &::after {
+        left: 0%;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+nav > ul {
+  grid-area: nav;
+  place-self: center;
+  
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  gap: 0.5rem;
+  
+  list-style: none;
+}
+
+.user {
+  grid-area: user;
+  
+  box-shadow: inset 
+    0px 0px 0px 2px 
+    var(--color);
+}
